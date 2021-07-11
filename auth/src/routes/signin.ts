@@ -1,10 +1,10 @@
 import express from "express";
-
 const router = express.Router()
 
-router.post('/api/users/signin', (req,res) => {
-    res.json({message: "signin"})
-})
+import {signinCtrl} from '../controllers/signin.ctrl'
+import { authValidation } from "../middleware/validation";
+
+router.post('/api/users/signin', authValidation, signinCtrl)
 
 
 export {router as signinRouter}

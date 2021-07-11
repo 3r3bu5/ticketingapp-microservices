@@ -1,10 +1,10 @@
 import express from 'express';
-import {Request, Response} from 'express'
 import { json } from 'body-parser';
 import { signinRouter } from './routes/signin';
 import { signoutRouter } from './routes/signout';
 import { signupRouter } from './routes/signup';
 import { currentUserRouter } from './routes/current-user';
+import { errorHandler } from './middleware/error-handler';
 
 const app = express();
 app.use(json());
@@ -20,14 +20,7 @@ app.use((req, res, next) => {
   next(err);
 });
 
-app.use((error: any, req: Request, res: Response, next:any) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.status( 500 )
-  res.json({
-    status: false,
-    err: error.message
-  });
-});
+app.use(errorHandler)
 
 
 app.listen(4000, () => {

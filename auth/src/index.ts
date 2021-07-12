@@ -5,6 +5,7 @@ import { signoutRouter } from './routes/signout';
 import { signupRouter } from './routes/signup';
 import { currentUserRouter } from './routes/current-user';
 import { errorHandler } from './middleware/error-handler';
+import { notFoundRouter } from './routes/404';
 
 const app = express();
 app.use(json());
@@ -15,11 +16,9 @@ app.use(signoutRouter)
 app.use(signupRouter)
 app.use(currentUserRouter)
 
-app.use((req, res, next) => {
-  const err = new Error('404 NOT FOUND');
-  next(err);
-});
-
+// 404 Route
+app.use(notFoundRouter)
+// Error handler 
 app.use(errorHandler)
 
 

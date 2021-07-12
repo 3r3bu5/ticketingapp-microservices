@@ -1,5 +1,6 @@
 import Joi from "joi";
 import {Request, Response} from 'express'
+import {validationError} from '../error/validationError'
 
 let schema:any;
 
@@ -37,7 +38,8 @@ function authValidation( req: Request, res: Response, next:any ) {
 	const { error, value } = schema.validate( req.body, options );
     
 	if ( error ) {
-		return next( error );
+		let errorToSent =  new validationError(error)
+		return next( errorToSent );
 	} else {
 		req.body = value;
 		next();

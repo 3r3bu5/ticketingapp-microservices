@@ -9,12 +9,20 @@ import { errorHandler } from './middleware/error-handler';
 import { notFoundRouter } from './routes/404';
 import { connectDB } from './config/db.config';
 import passport from 'passport';
+import cookieSession from 'cookie-session';
 import './config/passport'
 
 
 
 const app = express();
+app.set('trust proxy', 1) 
 app.use(json());
+
+//cookie-session
+app.use(cookieSession({
+  signed: false,
+  secure: true
+}))
 
 // passport init 
 app.use(passport.initialize());
@@ -31,6 +39,9 @@ app.use(notFoundRouter)
 // Error handler 
 app.use(errorHandler)
 
+if (!process.env.JWT_KEY){
+  throw new Error("JWT key must be defined")
+}
 connectDB()
 
 app.listen(4000, () => {

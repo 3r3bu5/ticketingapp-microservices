@@ -36,7 +36,16 @@ const userSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true
+    timestamps: true,
+    toJSON: {
+      transform (doc, ret){
+        ret.id = ret._id
+        delete ret._id
+        delete ret.hash
+        delete ret.salt
+        delete ret.version
+      }
+    }
   },
 ) as PassportLocalSchema;
 

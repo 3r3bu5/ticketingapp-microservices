@@ -1,4 +1,5 @@
 import {Request, Response, NextFunction} from 'express'
+import jwt from 'jsonwebtoken';
 import passport from 'passport'
 import { APIError } from '../error/APIError';
 
@@ -14,7 +15,17 @@ const signin = (req: Request , res: Response, next:NextFunction) => {
             if (err) {
                 return next( new APIError('Authentication Error: ' + err))
              }
-            return res.json({email: user.email});
+             const userJWT = jwt.sign(
+                {
+                  id: user._id,
+                  email: user.email
+                }
+                ,process.env.JWT_KEY!
+                )
+                req.session = {
+                 jwt:  userJWT
+                }
+            return res.status(200).json(user);
         });
       })(req, res, next);
 }

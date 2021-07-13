@@ -1,6 +1,7 @@
 import {NextFunction, Request, Response} from 'express'
 import { User } from '../model/user.model'
 import { APIError } from '../error/APIError';
+import jwt from 'jsonwebtoken'
 
 const signup = async (req: Request , res: Response, next: NextFunction) => {
     try {
@@ -10,8 +11,19 @@ const signup = async (req: Request , res: Response, next: NextFunction) => {
           }), req.body.password
           );
         const savedUser = await user.save();
+        // create JWT and store it in the cookie 
+        const userJWT = jwt.sign(
+          {
+            id: savedUser._id,
+            email: savedUser.email
+          }
+          ,process.env.JWT_KEY!
+          )
+          req.session = {
+           jwt:  userJWT
+          }
         res.setHeader('Content-Type', 'application/json');
-        res.status(200).json({ success: true, msg: 'Registration Successful!' });
+        res.status(201).json( savedUser );
       } catch (err) {
         return next(new APIError('Authentication Error: ' + err.message))
     }

@@ -1,7 +1,7 @@
 export abstract class customError extends Error {
     abstract statusCode: number
-    constructor() {
-      super();
+    constructor(message: string) {
+      super(message);
       Object.setPrototypeOf(this, customError.prototype);
       Error.captureStackTrace(this);
     }

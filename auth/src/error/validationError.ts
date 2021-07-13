@@ -4,7 +4,7 @@ import { customError } from './customError';
 export class validationError extends customError {
     statusCode = 400
     constructor(public error: ValidationError) {
-      super();
+      super("Validation Error!");
       Object.setPrototypeOf(this, validationError.prototype);
       Error.captureStackTrace(this);
     }

@@ -8,9 +8,17 @@ import { currentUserRouter } from './routes/current-user';
 import { errorHandler } from './middleware/error-handler';
 import { notFoundRouter } from './routes/404';
 import { connectDB } from './config/db.config';
+import passport from 'passport';
+import './config/passport'
+
+
 
 const app = express();
 app.use(json());
+
+// passport init 
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Routes
 app.use(signinRouter)

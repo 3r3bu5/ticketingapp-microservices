@@ -1,35 +1,52 @@
-import { Model, Schema, model, Document } from 'mongoose';
+import mongoose, {
+  PassportLocalDocument,
+  PassportLocalSchema,
+  PassportLocalModel,
+  PassportLocalOptions,
+  PassportLocalErrorMessages
+} from 'mongoose';
+import passportLocalMongoose from 'passport-local-mongoose';
+import {authOptions} from '../const/auth-error'
 
-// interface to build a user document 
-interface userAttrs {
-  email: string,
-  password: string
+// An interface for props to create a new user
+interface UserAttrs {
+  email: string;
+  password: string;
 }
-// interface to build a user document 
-interface userDOC extends Document {
-  email: string,
-  password: string,
+
+// An interface that describes the properties of User document
+export interface UserDoc extends PassportLocalDocument {
+  email: string;
+  password: string;
   createdAt: string,
   updatedAt: string
 }
 
-// interface to build a user document 
-interface UserModel extends Model<userDOC> {
-    build(attrs: userAttrs): userDOC;
+
+// An interface that describes User model
+export interface UserModel extends PassportLocalModel<UserDoc> {
+  build(attrs: UserAttrs): UserDoc;
 }
 
-//schema itself
-const schema = new Schema<userDOC, UserModel>(
-    { email: {type: String, required: true},
-      password: {type: String, required: true}
-    } 
-);
-// add static function to schema
-schema.static('build', function build(attrs: userAttrs) {
-    return new User(attrs)
-});
+const userSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    timestamps: true
+  },
+) as PassportLocalSchema;
 
-// generics 
-const User = model<userDOC, UserModel>('User', schema);
+userSchema.set('versionKey', 'version');
 
-export {User}
+userSchema.plugin(passportLocalMongoose, authOptions);
+
+userSchema.statics.build = (attrs: UserAttrs) => {
+  return new User(attrs);
+};
+const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
+
+export { User };

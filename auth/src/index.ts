@@ -7,6 +7,7 @@ import { signupRouter } from './routes/signup';
 import { currentUserRouter } from './routes/current-user';
 import { errorHandler } from './middleware/error-handler';
 import { notFoundRouter } from './routes/404';
+import { connectDB } from './config/db.config';
 
 const app = express();
 app.use(json());
@@ -22,6 +23,7 @@ app.use(notFoundRouter)
 // Error handler 
 app.use(errorHandler)
 
+connectDB()
 
 app.listen(4000, () => {
   console.log('Listening on port 4000');

@@ -12,7 +12,7 @@ const errorHandler = (error: Error, req: Request, res: Response, next:NextFuncti
     return res.status(400).json({
       errors: [
         {
-          message: "Something went wrong"
+          message: error.message || "Something went wrong"
         }
       ]
     }

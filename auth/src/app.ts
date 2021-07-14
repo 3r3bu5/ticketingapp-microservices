@@ -20,7 +20,7 @@ app.use(json());
 //cookie-session
 app.use(cookieSession({
   signed: false,
-  secure: true
+  secure: process.env.NODE_ENV !== 'test' ? true : false
 }))
 
 // passport init 
@@ -38,8 +38,5 @@ app.use(notFoundRouter)
 // Error handler 
 app.use(errorHandler)
 
-if (!process.env.JWT_KEY){
-  throw new Error("JWT key must be defined")
-}
 
 export {app}

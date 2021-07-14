@@ -1,11 +1,10 @@
 import { connectDB } from './config/db.config';
-import {app} from './app'
+import { app } from './app';
 
-connectDB()
+connectDB();
 
-
-if (!process.env.JWT_KEY){
-  throw new Error("JWT key must be defined")
+if (!process.env.JWT_KEY) {
+  throw new Error('JWT key must be defined');
 }
 
 app.listen(4000, () => {

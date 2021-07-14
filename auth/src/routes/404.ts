@@ -1,9 +1,8 @@
-import express from "express";
-const router = express.Router()
+import express from 'express';
+const router = express.Router();
 
-import {notFoundCtrl} from '../controllers/notFound.ctrl'
+import { notFoundCtrl } from '../controllers/notFound.ctrl';
 
-router.all('*', notFoundCtrl)
+router.all('*', notFoundCtrl);
 
-
-export {router as notFoundRouter}
+export { router as notFoundRouter };

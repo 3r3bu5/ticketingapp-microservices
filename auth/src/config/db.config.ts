@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const connectDB = async () => {
   try {
@@ -6,13 +6,13 @@ const connectDB = async () => {
       useNewUrlParser: true,
       useCreateIndex: true,
       useFindAndModify: false,
-      useUnifiedTopology: true,
+      useUnifiedTopology: true
     });
-    console.log('Connected to DB successfully :)')
+    console.log('Connected to DB successfully :)');
   } catch (error) {
-    console.error(error);  
+    console.error(error);
     process.exit(1);
   }
 };
 
-export {connectDB}
+export { connectDB };

@@ -6,7 +6,7 @@ import mongoose, {
   PassportLocalErrorMessages
 } from 'mongoose';
 import passportLocalMongoose from 'passport-local-mongoose';
-import {authOptions} from '../const/auth-error'
+import { authOptions } from '../const/auth-error';
 
 // An interface for props to create a new user
 interface UserAttrs {
@@ -18,10 +18,9 @@ interface UserAttrs {
 export interface UserDoc extends PassportLocalDocument {
   email: string;
   password: string;
-  createdAt: string,
-  updatedAt: string
+  createdAt: string;
+  updatedAt: string;
 }
-
 
 // An interface that describes User model
 export interface UserModel extends PassportLocalModel<UserDoc> {
@@ -32,21 +31,21 @@ const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   {
     timestamps: true,
     toJSON: {
-      transform (doc, ret){
-        ret.id = ret._id
-        delete ret._id
-        delete ret.hash
-        delete ret.salt
-        delete ret.version
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.hash;
+        delete ret.salt;
+        delete ret.version;
       }
     }
-  },
+  }
 ) as PassportLocalSchema;
 
 userSchema.set('versionKey', 'version');

@@ -1,10 +1,9 @@
-import express from "express";
-import { signupCtrl } from "../controllers/signup.ctrl";
-import { authValidation } from "../middleware/validation";
+import express from 'express';
+import { signupCtrl } from '../controllers/signup.ctrl';
+import { authValidation } from '../middleware/validation';
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/api/users/signup', authValidation ,signupCtrl)
+router.post('/api/users/signup', authValidation, signupCtrl);
 
-
-export {router as signupRouter}
+export { router as signupRouter };

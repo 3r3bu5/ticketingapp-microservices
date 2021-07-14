@@ -1,9 +1,8 @@
-import express from "express";
-import { signoutCtrl } from "../controllers/signout.ctrl";
+import express from 'express';
+import { signoutCtrl } from '../controllers/signout.ctrl';
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/api/users/signout', signoutCtrl )
+router.post('/api/users/signout', signoutCtrl);
 
-
-export {router as signoutRouter}
+export { router as signoutRouter };

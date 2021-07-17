@@ -1,9 +1,10 @@
 import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
-import { errorHandler,  } from '@a4hticket/common';
+import { errorHandler, currentUser } from '@a4hticket/common';
 import { notFoundRouter } from './routes/404';
 import cookieSession from 'cookie-session';
+import { createNewTicket } from './routes/new';
 
 const app = express();
 app.set('trust proxy', 1);
@@ -17,9 +18,10 @@ app.use(
   })
 );
 
+app.use(currentUser as any)
 
 // Routes
-
+app.use(createNewTicket)
 
 
 // 404 Route

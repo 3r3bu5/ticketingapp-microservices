@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { User } from '../model/user.model';
-import { APIError } from '../error/APIError';
+import { APIError } from '@a4hticket/common';
 import jwt from 'jsonwebtoken';
 
 const signup = async (req: Request, res: Response, next: NextFunction) => {

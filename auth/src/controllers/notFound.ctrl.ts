@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { notFoundError } from '../error/notFoundError';
+import { notFoundError } from '@a4hticket/common';
 
 const notFoundCtrl = async (
   req: Request,

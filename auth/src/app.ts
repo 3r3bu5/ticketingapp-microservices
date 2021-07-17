@@ -5,7 +5,7 @@ import { signinRouter } from './routes/signin';
 import { signoutRouter } from './routes/signout';
 import { signupRouter } from './routes/signup';
 import { currentUserRouter } from './routes/current-user';
-import { errorHandler } from './middleware/error-handler';
+import { errorHandler,  } from '@a4hticket/common';
 import { notFoundRouter } from './routes/404';
 import passport from 'passport';
 import cookieSession from 'cookie-session';
@@ -36,6 +36,6 @@ app.use(currentUserRouter);
 // 404 Route
 app.use(notFoundRouter);
 // Error handler
-app.use(errorHandler);
+app.use(errorHandler as any);
 
 export { app };

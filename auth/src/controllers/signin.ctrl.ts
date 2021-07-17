@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
-import { APIError } from '../error/APIError';
+import { APIError } from '@a4hticket/common';
 
 const signin = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('local', function (err, user, info) {

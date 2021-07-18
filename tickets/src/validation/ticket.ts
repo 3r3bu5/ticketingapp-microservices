@@ -5,23 +5,32 @@ import { validationError } from '@a4hticket/common';
 let schema: any;
 
 function ticketValidation(req: Request, res: Response, next: any) {
-  if (
-    req.route.path === '/api/tickets' && req.method === 'POST'
-  ) {
+  if (req.route.path === '/api/tickets' && req.method === 'POST') {
     schema = Joi.object({
-      title: 
-      Joi.string()
+      title: Joi.string()
         .required()
-        .alphanum()
         .min(6)
-        .message("title must be a string with 6 chars minumum"),
-        
-    price: 
-     Joi.number()
+        .message('title must be a string with 6 chars minumum'),
+
+      price: Joi.number()
+        .integer()
+        .required()
+        .min(1)
+        .max(9999999999)
+        .message('price must be a positive number ')
+    });
+  }
+  if (req.route.path === '/api/tickets/:id' && req.method === 'PUT') {
+    schema = Joi.object({
+      title: Joi.string()
+        .min(6)
+        .message('title must be a string with 6 chars minumum'),
+
+      price: Joi.number()
         .integer()
         .min(1)
         .max(9999999999)
-      .message("price must be a positive number ")
+        .message('price must be a positive number ')
     });
   }
 

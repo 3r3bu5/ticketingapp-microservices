@@ -6,6 +6,8 @@ import { notFoundRouter } from './routes/404';
 import cookieSession from 'cookie-session';
 import { createNewTicket } from './routes/new';
 import { showTicketRouter } from './routes/show';
+import { showTicketsRouter } from './routes';
+import { updateTicketRouter } from './routes/update';
 
 const app = express();
 app.set('trust proxy', 1);
@@ -19,12 +21,13 @@ app.use(
   })
 );
 
-app.use(currentUser as any)
+app.use(currentUser as any);
 
 // Routes
-app.use(createNewTicket)
-app.use(showTicketRouter)
-
+app.use(createNewTicket);
+app.use(showTicketRouter);
+app.use(showTicketsRouter);
+app.use(updateTicketRouter);
 
 // 404 Route
 app.use(notFoundRouter);

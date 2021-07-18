@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const connectDB = async () => {
   if (!process.env.MONGO_URI) {
-    throw new Error('No DB string')
+    throw new Error('No DB string');
   }
   try {
     await mongoose.connect(process.env.MONGO_URI, {

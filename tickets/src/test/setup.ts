@@ -1,8 +1,6 @@
-import request from 'supertest';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken'
-import { app } from '../app';
+import jwt from 'jsonwebtoken';
 
 declare global {
   namespace NodeJS {
@@ -38,15 +36,15 @@ afterAll(async () => {
 });
 
 global.signup = () => {
-  // build jwt payload 
+  // build jwt payload
   const payload = {
-    id: 'asdsad',
-    email: "email@gmail.com"
-  }
-  const token = jwt.sign(payload,process.env.JWT_KEY!)
-  const session = {jwt: token}
-  const sessionJSON = JSON.stringify(session)
-  const base64 = Buffer.from(sessionJSON).toString('base64')
-  
+    id: new mongoose.Types.ObjectId().toHexString(),
+    email: 'email@gmail.com'
+  };
+  const token = jwt.sign(payload, process.env.JWT_KEY!);
+  const session = { jwt: token };
+  const sessionJSON = JSON.stringify(session);
+  const base64 = Buffer.from(sessionJSON).toString('base64');
+
   return [`express:sess=${base64}`];
 };

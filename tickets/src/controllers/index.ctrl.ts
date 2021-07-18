@@ -9,16 +9,16 @@ interface RequestWithUser extends Request {
   }; // or any other type
 }
 
-const showTicket = async (
+const showTickets = async (
   req: RequestWithUser,
   res: Response,
   next: NextFunction
 ) => {
-  const ticket = await Ticket.findById(req.params.id);
+  const ticket = await Ticket.find({});
   if (!ticket) {
     throw new notFoundError();
   }
   return res.status(200).send(ticket);
 };
 
-export { showTicket };
+export { showTickets };

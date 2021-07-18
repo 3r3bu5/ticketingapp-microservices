@@ -1,6 +1,4 @@
-import mongoose, {
-  Document, Model
-} from 'mongoose';
+import mongoose, { Document, Model } from 'mongoose';
 
 // An interface for props to create a new Ticket
 interface TicketAttrs {

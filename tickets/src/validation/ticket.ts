@@ -6,7 +6,7 @@ let schema: any;
 
 function ticketValidation(req: Request, res: Response, next: any) {
   if (
-    req.route.path === '/api/tickets'
+    req.route.path === '/api/tickets' && req.method === 'POST'
   ) {
     schema = Joi.object({
       title: 

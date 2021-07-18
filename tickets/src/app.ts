@@ -5,6 +5,7 @@ import { errorHandler, currentUser } from '@a4hticket/common';
 import { notFoundRouter } from './routes/404';
 import cookieSession from 'cookie-session';
 import { createNewTicket } from './routes/new';
+import { showTicketRouter } from './routes/show';
 
 const app = express();
 app.set('trust proxy', 1);
@@ -22,6 +23,7 @@ app.use(currentUser as any)
 
 // Routes
 app.use(createNewTicket)
+app.use(showTicketRouter)
 
 
 // 404 Route

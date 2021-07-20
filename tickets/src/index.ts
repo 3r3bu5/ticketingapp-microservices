@@ -1,7 +1,6 @@
 import { connectDB } from '../src/config/db.config';
 import { app } from './app';
 import { natsWrapper } from './nats-wrapper';
-import { randomBytes } from 'crypto';
 
 const main = async () => {
   try {

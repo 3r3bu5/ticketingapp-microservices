@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { Ticket } from '../../src/model/ticket.model';
+import { TicketCreatedPublisher } from '../events/publishers/ticketCreatedPub';
+import { natsWrapper } from '../nats-wrapper';
 
 interface RequestWithUser extends Request {
   currentUser: {
@@ -14,7 +16,13 @@ const createNewTicketCtrl = async (
   next: NextFunction
 ) => {
   const ticket = Ticket.build({ ...req.body, userId: req.currentUser!.id });
-  await ticket.save();
+  const savedTicket = await ticket.save();
+  new TicketCreatedPublisher(natsWrapper.client).publish({
+    id: savedTicket.id,
+    title: savedTicket.title,
+    price: savedTicket.price,
+    userId: savedTicket.userId
+  });
   res.status(201).send(ticket);
 };
 

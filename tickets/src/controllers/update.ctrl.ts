@@ -1,6 +1,8 @@
 import { notAuthorizedError, notFoundError } from '@a4hticket/common';
 import { NextFunction, Request, Response } from 'express';
 import { Ticket } from '../../src/model/ticket.model';
+import { TicketUpdatedPublisher } from '../events/publishers/ticketUpdatedPub';
+import { natsWrapper } from '../nats-wrapper';
 
 interface RequestWithUser extends Request {
   currentUser: {
@@ -29,6 +31,12 @@ const updateTicket = async (
     ticket.price = req.body.price;
   }
   const updateTicket = await ticket.save();
+  new TicketUpdatedPublisher(natsWrapper.client).publish({
+    id: updateTicket.id,
+    title: updateTicket.title,
+    price: updateTicket.price,
+    userId: updateTicket.userId
+  });
   return res.status(200).send(updateTicket);
 };
 

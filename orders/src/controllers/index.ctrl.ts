@@ -5,7 +5,7 @@ const getOrderCtrl = async (
   res: Response,
   next: NextFunction
 ) => {
-  res.send('index')
+  res.send('index');
 };
 
 export { getOrderCtrl };

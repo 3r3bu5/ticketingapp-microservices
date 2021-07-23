@@ -24,10 +24,10 @@ app.use(
 app.use(currentUser as any);
 
 // Routes
-app.use(getOrderRouter)
-app.use(newOrderRouter)
-app.use(getOneRouter)
-app.use(deleteOneRouter)
+app.use(getOrderRouter);
+app.use(newOrderRouter);
+app.use(getOneRouter);
+app.use(deleteOneRouter);
 
 // 404 Route
 app.use(notFoundRouter);

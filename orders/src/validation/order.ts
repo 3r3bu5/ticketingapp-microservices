@@ -7,8 +7,7 @@ let schema: any;
 function ordersValidation(req: Request, res: Response, next: any) {
   if (req.route.path === '/api/orders' && req.method === 'POST') {
     schema = Joi.object({
-      ticketId: Joi.string()
-        .required()
+      ticketId: Joi.string().required()
     });
   }
 

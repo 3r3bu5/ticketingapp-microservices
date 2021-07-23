@@ -1,12 +1,12 @@
 import mongoose, { Document, Model } from 'mongoose';
 import { TicketDoc } from './ticket.model';
-import {OrderStatus} from '@a4hticket/common'
+import { OrderStatus } from '@a4hticket/common';
 
 // An interface for props to create a new Ticket
 interface OrderAttrs {
   userId: string;
   status: OrderStatus;
-  expiresAt: Date,
+  expiresAt: Date;
   ticket: TicketDoc;
 }
 
@@ -14,7 +14,7 @@ interface OrderAttrs {
 export interface OrderDoc extends Document {
   userId: string;
   status: OrderStatus;
-  expiresAt: Date,
+  expiresAt: Date;
   ticket: TicketDoc;
   createdAt: string;
   updatedAt: string;
@@ -31,20 +31,19 @@ const OrderSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    status : {
+    status: {
       type: String,
       required: true,
       default: OrderStatus.Created,
       enum: Object.values(OrderStatus)
     },
     expiresAt: {
-        type: mongoose.Schema.Types.Date,
+      type: mongoose.Schema.Types.Date
     },
     ticket: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Ticket'
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Ticket'
     }
-
   },
   {
     timestamps: true,

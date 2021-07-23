@@ -5,6 +5,8 @@ import {
   OrderStatus
 } from '@a4hticket/common';
 import { Order } from '../models/order.model';
+import { OrderCancelledPublisher } from '../events/publishers/orderCancelledPub';
+import { natsWrapper } from '../nats-wrapper';
 
 interface RequestWithUser extends Request {
   currentUser: {
@@ -27,6 +29,12 @@ const deleteOne = async (
   }
   order.status = OrderStatus.Cancelled;
   order.save();
+  new OrderCancelledPublisher(natsWrapper.client).publish({
+    id: order.id,
+    ticket: {
+      id: order.ticket.id,
+    }
+  })
   return res.status(204).send(order);
 };
 

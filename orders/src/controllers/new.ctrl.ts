@@ -1,7 +1,9 @@
 import { APIError, notFoundError, OrderStatus } from '@a4hticket/common';
 import { NextFunction, Request, Response } from 'express';
+import { OrderCreatedPublisher } from '../events/publishers/orderCreatedPub';
 import { Order } from '../models/order.model';
 import { Ticket } from '../models/ticket.model';
+import { natsWrapper } from '../nats-wrapper';
 
 const expirationTime = 15 * 60;
 
@@ -37,6 +39,17 @@ const newOrder = async (req: Request, res: Response, next: NextFunction) => {
     ticket: ticket
   });
   await order.save();
+  new OrderCreatedPublisher(natsWrapper.client).publish({
+    id: order.id,
+    expiresAt: order.expiresAt.toISOString(),
+    status: order.status,
+    userId: order.userId,
+    ticket: {
+      id: ticket.id,
+      price: ticket.price
+    }
+  })
+  
   return res.status(201).send(order);
 };
 

@@ -18,3 +18,7 @@ export * from './event/listener/custom-listener'
 export * from './event/publisher/custom-publisher'
 
 export * from './event/const/order-status'
+
+// order events
+export * from './event/events-def/orderCreatedEvent'
+export * from './event/events-def/orderCancelledEvent'

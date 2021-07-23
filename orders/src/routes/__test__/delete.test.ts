@@ -56,9 +56,8 @@ it('sets order status to be cancelled', async () => {
   expect(updatedOrder?.status).toEqual(OrderStatus.Cancelled);
 });
 
-
 it('emits an event when cancelled', async () => {
-   const ticket = await buildTicket();
+  const ticket = await buildTicket();
   const userOne = global.signup();
 
   const { body: order } = await request(app)
@@ -73,5 +72,5 @@ it('emits an event when cancelled', async () => {
     .expect(204);
   const updatedOrder = await Order.findById(order.id);
   expect(updatedOrder?.status).toEqual(OrderStatus.Cancelled);
-  expect(natsWrapper.client.publish).toHaveBeenCalled()
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });

@@ -87,6 +87,6 @@ it('emits an event when created', async () => {
     .post('/api/orders')
     .set('Cookie', global.signup())
     .send({ ticketId: ticket.id })
-    .expect(201)
-    expect(natsWrapper.client.publish).toHaveBeenCalled()
+    .expect(201);
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });

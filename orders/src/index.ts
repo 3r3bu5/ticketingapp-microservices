@@ -1,5 +1,7 @@
 import { connectDB } from '../src/config/db.config';
 import { app } from './app';
+import { TicketCreatedListener } from './events/listeners/ticketCreatedListener';
+import { TicketUpdatedListener } from './events/listeners/ticketUpdatedListener';
 import { natsWrapper } from './nats-wrapper';
 
 const main = async () => {
@@ -31,6 +33,9 @@ const main = async () => {
     });
     process.on('SIGTERM', () => natsWrapper.client.close());
     process.on('SIGINT', () => natsWrapper.client.close());
+
+    new TicketCreatedListener(natsWrapper.client).listen();
+    new TicketUpdatedListener(natsWrapper.client).listen();
 
     connectDB();
 

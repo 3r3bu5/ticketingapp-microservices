@@ -4,6 +4,7 @@ import mongoose, { Document, Model } from 'mongoose';
 interface TicketAttrs {
   price: number;
   title: string;
+  id: string;
 }
 
 // An interface that describes the properties of Ticket document
@@ -40,7 +41,10 @@ const TicketSchema = new mongoose.Schema(
 );
 
 TicketSchema.statics.build = (attrs: TicketAttrs) => {
-  return new Ticket(attrs);
+  return new Ticket({
+    _id: attrs.id,
+    ...attrs
+  });
 };
 const Ticket = mongoose.model<TicketDoc, TicketModel>('Ticket', TicketSchema);
 

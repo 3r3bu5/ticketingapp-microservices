@@ -48,8 +48,8 @@ const newOrder = async (req: Request, res: Response, next: NextFunction) => {
       id: ticket.id,
       price: ticket.price
     }
-  })
-  
+  });
+
   return res.status(201).send(order);
 };
 

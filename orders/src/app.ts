@@ -4,6 +4,10 @@ import { json } from 'body-parser';
 import { errorHandler, currentUser } from '@a4hticket/common';
 import { notFoundRouter } from './routes/404';
 import cookieSession from 'cookie-session';
+import { getOrderRouter } from './routes';
+import { newOrderRouter } from './routes/new';
+import { getOneRouter } from './routes/show';
+import { deleteOneRouter } from './routes/delete';
 
 const app = express();
 app.set('trust proxy', 1);
@@ -20,7 +24,10 @@ app.use(
 app.use(currentUser as any);
 
 // Routes
-
+app.use(getOrderRouter)
+app.use(newOrderRouter)
+app.use(getOneRouter)
+app.use(deleteOneRouter)
 
 // 404 Route
 app.use(notFoundRouter);

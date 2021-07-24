@@ -8,7 +8,8 @@ import { Ticket } from '../../models/ticket.model';
 const buildTicket = async () => {
   const ticket = Ticket.build({
     title: 'alohaaaaaa',
-    price: 50
+    price: 50,
+    id: new mongoose.Types.ObjectId().toHexString()
   });
   await ticket.save();
   return ticket;

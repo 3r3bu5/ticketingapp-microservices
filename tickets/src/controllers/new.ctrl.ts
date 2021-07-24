@@ -21,7 +21,8 @@ const createNewTicketCtrl = async (
     id: savedTicket.id,
     title: savedTicket.title,
     price: savedTicket.price,
-    userId: savedTicket.userId
+    userId: savedTicket.userId,
+    version: savedTicket.version
   });
   res.status(201).send(ticket);
 };

@@ -44,6 +44,7 @@ const newOrder = async (req: Request, res: Response, next: NextFunction) => {
     expiresAt: order.expiresAt.toISOString(),
     status: order.status,
     userId: order.userId,
+    version: order.version,
     ticket: {
       id: ticket.id,
       price: ticket.price

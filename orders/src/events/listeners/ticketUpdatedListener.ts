@@ -12,8 +12,8 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
   subject: Subjects.ticketUpdated = Subjects.ticketUpdated;
   queueGroupName = queueGroupName.orderService;
   async onMessage(data: TicketUpdatedEvent['data'], msg: Message) {
-    const { id, title, price } = data;
-    const ticket = await Ticket.findById(id);
+    const { id, title, price, version } = data;
+    const ticket = await Ticket.findByIdAndVersion(data);
     if (!ticket) {
       throw new APIError('Ticket not found');
     }

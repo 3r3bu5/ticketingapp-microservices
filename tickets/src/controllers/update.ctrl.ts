@@ -35,7 +35,8 @@ const updateTicket = async (
     id: updateTicket.id,
     title: updateTicket.title,
     price: updateTicket.price,
-    userId: updateTicket.userId
+    userId: updateTicket.userId,
+    version: updateTicket.version
   });
   return res.status(200).send(updateTicket);
 };

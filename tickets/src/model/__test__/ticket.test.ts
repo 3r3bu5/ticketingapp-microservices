@@ -4,7 +4,7 @@ it('increments the version number on multiple saves', async () => {
   const ticket = Ticket.build({
     title: 'concert',
     price: 20,
-    userId: '123',
+    userId: '123'
   });
 
   await ticket.save();

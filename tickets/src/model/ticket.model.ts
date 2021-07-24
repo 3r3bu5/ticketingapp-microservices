@@ -49,7 +49,7 @@ const TicketSchema = new mongoose.Schema(
     }
   }
 );
-TicketSchema.set('versionKey', 'version')
+TicketSchema.set('versionKey', 'version');
 TicketSchema.plugin(updateIfCurrentPlugin);
 TicketSchema.statics.build = (attrs: TicketAttrs) => {
   return new Ticket(attrs);

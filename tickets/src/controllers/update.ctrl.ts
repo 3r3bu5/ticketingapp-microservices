@@ -1,4 +1,4 @@
-import { notAuthorizedError, notFoundError } from '@a4hticket/common';
+import { APIError, notAuthorizedError, notFoundError } from '@a4hticket/common';
 import { NextFunction, Request, Response } from 'express';
 import { Ticket } from '../../src/model/ticket.model';
 import { TicketUpdatedPublisher } from '../events/publishers/ticketUpdatedPub';
@@ -23,6 +23,9 @@ const updateTicket = async (
   }
   if (ticket.userId !== req.currentUser.id) {
     throw new notAuthorizedError();
+  }
+  if (ticket.orderId) {
+    throw new APIError('Cannot edit a reserved ticket');
   }
   if (req.body.title) {
     ticket.title = req.body.title;

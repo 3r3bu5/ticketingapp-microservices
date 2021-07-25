@@ -13,6 +13,7 @@ export interface TicketDoc extends Document {
   price: number;
   title: string;
   userId: string;
+  orderId?: string;
   createdAt: string;
   updatedAt: string;
   version: number;
@@ -36,6 +37,9 @@ const TicketSchema = new mongoose.Schema(
     userId: {
       type: String,
       required: true
+    },
+    orderId: {
+      type: String
     }
   },
   {

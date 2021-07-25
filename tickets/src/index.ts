@@ -1,5 +1,7 @@
 import { connectDB } from '../src/config/db.config';
 import { app } from './app';
+import { orderCancelledListener } from './events/listeners/orderCancelledListener';
+import { OrderCreatedListener } from './events/listeners/OrderCreatedListener';
 import { natsWrapper } from './nats-wrapper';
 
 const main = async () => {
@@ -25,6 +27,7 @@ const main = async () => {
       process.env.NATS_CLIENT_ID,
       process.env.NATS_URI
     );
+
     natsWrapper.client.on('close', () => {
       console.log('NATS Disconnected!');
       process.exit();
@@ -32,6 +35,8 @@ const main = async () => {
     process.on('SIGTERM', () => natsWrapper.client.close());
     process.on('SIGINT', () => natsWrapper.client.close());
 
+    new OrderCreatedListener(natsWrapper.client).listen();
+    new orderCancelledListener(natsWrapper.client).listen();
     connectDB();
 
     app.listen(4000, () => {

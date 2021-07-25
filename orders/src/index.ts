@@ -1,6 +1,7 @@
 import { connectDB } from '../src/config/db.config';
 import { app } from './app';
 import { expirationCompleteListener } from './events/listeners/expirationCompleteListener';
+import { paymentCreatedListener } from './events/listeners/paymentCreatedListener';
 import { TicketCreatedListener } from './events/listeners/ticketCreatedListener';
 import { TicketUpdatedListener } from './events/listeners/ticketUpdatedListener';
 import { natsWrapper } from './nats-wrapper';
@@ -38,6 +39,7 @@ const main = async () => {
     new TicketCreatedListener(natsWrapper.client).listen();
     new TicketUpdatedListener(natsWrapper.client).listen();
     new expirationCompleteListener(natsWrapper.client).listen();
+    new paymentCreatedListener(natsWrapper.client).listen();
 
     connectDB();
 

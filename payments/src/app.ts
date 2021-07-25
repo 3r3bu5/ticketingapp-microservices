@@ -4,6 +4,7 @@ import { json } from 'body-parser';
 import { errorHandler, currentUser } from '@a4hticket/common';
 import { notFoundRouter } from './routes/404';
 import cookieSession from 'cookie-session';
+import { createChargeRouter } from './routes/new';
 
 const app = express();
 app.set('trust proxy', 1);
@@ -20,6 +21,7 @@ app.use(
 app.use(currentUser as any);
 
 // Routes
+app.use(createChargeRouter);
 
 // 404 Route
 app.use(notFoundRouter);

@@ -1,3 +1,4 @@
+import { orderCreatedListener } from './events/listeners/orderCreatedListener';
 import { natsWrapper } from './nats-wrapper';
 
 const main = async () => {
@@ -19,7 +20,7 @@ const main = async () => {
       process.env.NATS_CLIENT_ID,
       process.env.NATS_URI
     );
-
+    new orderCreatedListener(natsWrapper.client).listen();
     natsWrapper.client.on('close', () => {
       console.log('NATS Disconnected!');
       process.exit();

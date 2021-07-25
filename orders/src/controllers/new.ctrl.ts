@@ -5,7 +5,7 @@ import { Order } from '../models/order.model';
 import { Ticket } from '../models/ticket.model';
 import { natsWrapper } from '../nats-wrapper';
 
-const expirationTime = 15 * 60;
+const expirationTime = 1 * 60;
 
 const newOrder = async (req: Request, res: Response, next: NextFunction) => {
   // find the ticket user trying to order

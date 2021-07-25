@@ -22,3 +22,5 @@ export * from './event/const/order-status'
 // order events
 export * from './event/events-def/orderCreatedEvent'
 export * from './event/events-def/orderCancelledEvent'
+
+export * from './event/events-def/expirationCompleteEvent'

@@ -6,6 +6,10 @@ import {
   OrderStatus
 } from '@a4hticket/common';
 import { Order } from '../model/order.model';
+import { stripe } from '../stripe';
+import { Payment } from '../model/payment.model';
+import { paymentCreatedPub } from '../events/publishers/paymentCreatedPub';
+import { natsWrapper } from '../nats-wrapper';
 
 const chargeCtrl = async (req: Request, res: Response, next: NextFunction) => {
   const { token, orderId } = req.body;
@@ -19,8 +23,22 @@ const chargeCtrl = async (req: Request, res: Response, next: NextFunction) => {
   if (order.status === OrderStatus.Cancelled) {
     throw new APIError('Order has been cancelled earlier!');
   }
-
-  res.send({ sunccess: 'true' });
+  const charge = await stripe.charges.create({
+    currency: 'usd',
+    amount: order.price * 100,
+    source: token
+  });
+  const payment = Payment.build({
+    orderId,
+    stripeId: charge.id
+  });
+  await payment.save();
+  new paymentCreatedPub(natsWrapper.client).publish({
+    id: payment.id,
+    orderId: payment.orderId,
+    stripeId: payment.stripeId
+  });
+  res.status(201).send({ id: payment.id });
 };
 
 export { chargeCtrl };

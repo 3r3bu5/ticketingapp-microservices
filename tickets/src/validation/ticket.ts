@@ -13,9 +13,8 @@ function ticketValidation(req: Request, res: Response, next: any) {
         .message('title must be a string with 6 chars minumum'),
 
       price: Joi.number()
-        .integer()
         .required()
-        .min(1)
+        .min(0.60)
         .max(9999999999)
         .message('price must be a positive number ')
     });

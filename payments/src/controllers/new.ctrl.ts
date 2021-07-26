@@ -23,6 +23,10 @@ const chargeCtrl = async (req: Request, res: Response, next: NextFunction) => {
   if (order.status === OrderStatus.Cancelled) {
     throw new APIError('Order has been cancelled earlier!');
   }
+  if (order.status === OrderStatus.Completed) {
+    throw new APIError('Order has been already paid!');
+  }
+  
   const charge = await stripe.charges.create({
     currency: 'usd',
     amount: order.price * 100,
@@ -38,6 +42,10 @@ const chargeCtrl = async (req: Request, res: Response, next: NextFunction) => {
     orderId: payment.orderId,
     stripeId: payment.stripeId
   });
+  order.set({
+    status: OrderStatus.Completed
+  })
+  await order.save()
   res.status(201).send({ id: payment.id });
 };
 

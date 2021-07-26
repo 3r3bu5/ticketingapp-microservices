@@ -6,12 +6,13 @@
   "scripts": {
     "dev": "next",
     "prett": "prettier --config .prettierrc ./**/*.js  --write"
-
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@stripe/react-stripe-js": "^1.4.1",
+    "@stripe/stripe-js": "^1.16.0",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.2",
     "next": "^11.0.1",

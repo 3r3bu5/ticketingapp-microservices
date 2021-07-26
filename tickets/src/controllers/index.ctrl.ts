@@ -14,7 +14,9 @@ const showTickets = async (
   res: Response,
   next: NextFunction
 ) => {
-  const ticket = await Ticket.find({});
+  const ticket = await Ticket.find({
+    orderId: undefined
+  });
   if (!ticket) {
     throw new notFoundError();
   }

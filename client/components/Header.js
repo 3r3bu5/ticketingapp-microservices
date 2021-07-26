@@ -8,6 +8,7 @@ export default function Header({ currentUser }) {
         </Link>
         <dev className="d-flex">
           {currentUser != null ? (
+            <>
             <Link
               href="/auth/signout"
               className="btn btn-outline-primary"
@@ -17,6 +18,25 @@ export default function Header({ currentUser }) {
                 signout
               </a>
             </Link>
+             <Link
+              href="/tickets/new"
+              className="btn btn-outline-primary"
+              type="submit"
+            >
+              <a className="btn btn-outline-primary" type="submit">
+                sell tickets
+              </a>
+            </Link>
+             <Link
+              href="/orders/"
+              className="btn btn-outline-primary"
+              type="submit"
+            >
+              <a className="btn btn-outline-primary" type="submit">
+                my orders
+              </a>
+            </Link>
+            </>
           ) : (
             <>
               <Link
